@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cascade;
+
 
 @ApiModel(value = "Student", description = "The Student Entity")
 @Entity
@@ -23,6 +26,7 @@ public class Student
     private String studname;
 
     @ManyToMany
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JoinTable(name = "studcourses",
                joinColumns = {@JoinColumn(name = "studid")},
                inverseJoinColumns = {@JoinColumn(name = "courseid")})

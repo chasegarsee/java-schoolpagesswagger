@@ -1,7 +1,8 @@
 package com.lambdaschool.school.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends Auditable
 {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roleid;
@@ -18,8 +21,8 @@ public class Role extends Auditable
             unique = true)
     String name;
 
-    @OneToMany(mappedBy = "role",
-               cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role")
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("role")
     private List<UserRoles> userRoles = new ArrayList<>();
 

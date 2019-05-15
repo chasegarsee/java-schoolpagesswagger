@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cascade;
+
 // User is considered the parent entity of all - the Grand Poobah!
 
 @Entity
@@ -26,8 +29,8 @@ public class User extends Auditable
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
 

@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "instructor")
 public class Instructor
@@ -17,6 +20,7 @@ public class Instructor
     private String instructname;
 
     @OneToMany(mappedBy = "instructor")
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("instructors")
     private List<Course> courses = new ArrayList<>();
 
