@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +28,9 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController
 {
+
+    private static final Logger logger = LoggerFactory.getLogger(Student.class);
+
     @Autowired
     private StudentService studentService;
 
@@ -46,8 +52,10 @@ public class StudentController
                                                               size = 5)
                                                          Pageable pageable)
     {
+        logger.info("/ALL STUDENTS ACCESSED");
         List<Student> myStudents = studentService.findAll(pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
+
     }
 
     @ApiOperation(value = "Retrieves a Student associated with the id", response = Student.class)
@@ -62,6 +70,7 @@ public class StudentController
             @PathVariable
                     Long StudentId)
     {
+        logger.info("/ACCESSED STUDENT WITH THE ID OF: " + StudentId);
         Student r = studentService.findStudentById(StudentId);
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
@@ -79,6 +88,7 @@ public class StudentController
                              size = 5)
                     Pageable pageable)
     {
+        logger.info("/ACCESSED " + name);
         List<Student> myStudents = studentService.findStudentByNameLike(name, pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
@@ -99,6 +109,7 @@ public class StudentController
     {
         newStudent = studentService.save(newStudent);
 
+        logger.info("/CREATED STUDENT");
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newStudentURI = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -124,6 +135,7 @@ public class StudentController
             @PathVariable
                     long Studentid)
     {
+        logger.info("/UPDATED STUDENT");
         studentService.update(updateStudent, Studentid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -140,6 +152,7 @@ public class StudentController
             @PathVariable
                     long Studentid)
     {
+        logger.info("/DELETED STUDENT");
         studentService.delete(Studentid);
         return new ResponseEntity<>(HttpStatus.OK);
     }

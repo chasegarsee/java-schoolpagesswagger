@@ -33,11 +33,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.h2database</groupId>-->
-        <!--            <artifactId>h2</artifactId>-->
-        <!--&lt;!&ndash;            <scope>runtime</scope>&ndash;&gt;-->
-        <!--        </dependency>-->
+<!--                <dependency>-->
+<!--                    <groupId>com.h2database</groupId>-->
+<!--                    <artifactId>h2</artifactId>-->
+<!--        &lt;!&ndash;            <scope>runtime</scope>&ndash;&gt;-->
+<!--                </dependency>-->
 
         <!-- PostgreSQL -->
         <!-- need jdbc for Heroku -->
@@ -119,7 +119,21 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.2</version>
         </dependency>
-<!--        ### SECURITY ###-->
+        <!--   ### SECURITY ###-->
+
+        <!--###   LOGGER   ###-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!--###   LOGGER   ###-->
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.8</version>
+        </dependency>
 
     </dependencies>
 
