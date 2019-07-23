@@ -1,12 +1,11 @@
 package com.lambdaschool.school.repository;
 
 import com.lambdaschool.school.model.Student;
-import org.springframework.data.repository.CrudRepository;
-
-import java.util.ArrayList;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
-public interface StudentRepository extends CrudRepository<Student, Long>
+public interface StudentRepository extends PagingAndSortingRepository<Student, Long>
 {
-    List<Student> findByStudnameContainingIgnoreCase(String name);
+    List<Student> findByStudnameContainingIgnoreCase(String name, Pageable pageable);
 }

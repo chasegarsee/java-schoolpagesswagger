@@ -2,9 +2,15 @@ package com.lambdaschool.school.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cascade;
+
 
 @Entity
 @Table(name = "course")
@@ -19,12 +25,14 @@ public class Course
     private String coursename;
 
     @ManyToOne
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JoinColumn(name = "instructid")
     @JsonIgnoreProperties("courses")
 //    @JsonView(View.CoursesOnly.class)
     private Instructor instructor;
 
     @ManyToMany(mappedBy = "courses")
+                @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("courses")
     private List<Student> students = new ArrayList<>();
 
